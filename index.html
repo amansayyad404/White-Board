@@ -4,12 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/hamburger.css">
+    <link rel="stylesheet" href="./css/queries.css">
     <script src="script.js " defer></script>
 </head>
 <body>
+    <div class="ham">
+        <div class="hamburger is-active" id="hamburger-1">
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+        </div>
+    </div>
+   
     <div class="container">
-        <section class="tools-board">
+       
+        <section class="tools-board add-animation">
             <div class="row">
                 <label for="title">Shapes</label>
                 <ul class="options">
@@ -69,9 +80,11 @@
                 <button class="save-img">Save As Image</button>
             </div>
         </section>
-        <section class="drawing-board">
+        <section class="drawing-board add-size">
             <canvas></canvas>
         </section>
     </div>
+    <script src="./js/common.js"></script>
+    <script src="./js/tool.js"></script>
 </body>
 </html>
