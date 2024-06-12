@@ -9,11 +9,12 @@ body{
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background-color: #4a98f7;
+    background-color: #5ba4fc;
 }
 .container{
     display: flex;
     width: 100%;
+    height: 750px;
     max-width: 1050px;
     gap: 10px;
     padding: 10px;
@@ -23,13 +24,21 @@ section{
     background-color: white;
     border-radius: 7px;
 }
-.drawing-board{
-    flex: 1;
-}
+
+
 .tools-board{
     width: 210px;
+    
     padding: 15px 22px 0;
 
+    /* From https://css.glass */
+    background: rgba(254, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.9px);
+    -webkit-backdrop-filter: blur(5.9px);
+    border: 1px solid rgba(254, 255, 255, 0.21);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 .tools-board .row{
     margin-bottom: 20px;
@@ -48,7 +57,7 @@ section{
 
 }
 span:hover{
-    color: #4a98f7;
+    color: #000307;
 }
 
 .option :where(span,label){
@@ -63,13 +72,14 @@ span:hover{
 
 }
 #fill-color:checked ~label{
- color: #4a98f7;
+ color: #000;
 }
 
 .option #size-slider{
     width: 100%;
     height: 5px;
     margin-top: 10px;
+   
 }
 .colors .options{
     display: flex;
@@ -137,8 +147,8 @@ cursor: pointer;
 
 }
 .buttons .clear-canvas{
-    color: #6c757d;
-    border: 1px solid #6c757d;
+    color: #0a0a0a;
+    border: 1px solid #080808;
     transition: all 0.3s ease;
 
 }
@@ -146,8 +156,24 @@ cursor: pointer;
     color: #fff;
     background: #6c757d;
 }
+
+
+
 .buttons .save-img{
-    background: #4a98f7;
+    background: #066fef;
     border: 1px solid #4a98f7;
 
+}
+.save-img:hover{
+    color: #fff;
+    background: #6c757d;
+}
+.drawing-board{
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    flex: 1;
+}
+
+.drawing-board canvas{
+    width: 100%;
+    height: 100%;
 }
