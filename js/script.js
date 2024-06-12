@@ -1,7 +1,11 @@
 const canvas=document.querySelector(".board");
 toolbtns=document.querySelectorAll(".tool");
 fillColor=document.querySelector("#fill-color");
-
+sizeSlider=document.querySelector("#size-slider");
+ColorBtns=document.querySelectorAll(".colors .option");
+colorPicker=document.querySelector("#color-picker");
+clearCanvas=document.querySelector(".clear-canvas");
+saveImage=document.querySelector(".save-img");
 
 
 ctx=canvas.getContext("2d");
@@ -10,13 +14,22 @@ canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
 
 
-let prevMouseX, prevMouseY,snapshot,
- isDrawing=false;
-selectedTool="brush";
-brushWidth=5;
+let prevMouseX, prevMouseY,snapshot;
+let isDrawing=false;
+let selectedTool="brush";
+let brushWidth=5;
+let selectedColor="#000";
+
+const setBackGround=()=>{
+    ctx.fillStyle="#fff";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle=selectedColor;
+}
+
 window.addEventListener("load",() =>{
     canvas.width=canvas.offsetWidth;
     canvas.height=canvas.offsetHeight;
+    setBackGround();
 })
 
 const DrawRect=(e)=>{
@@ -48,6 +61,8 @@ const Startdrawing= (e)=>{
     prevMouseY=e.offsetY;
     ctx.beginPath();
     ctx.lineWidth=brushWidth;
+    ctx.strokeStyle=selectedColor;
+    ctx.fillStyle=selectedColor;
     snapshot=ctx.getImageData(0,0,canvas.width,canvas.height);
 }
 
@@ -57,7 +72,11 @@ const drawing =(e) =>{
         return;
     }
     ctx.putImageData(snapshot,0,0);
-    if(selectedTool==="brush"){
+    if(selectedTool==="brush" || selectedTool==="eraser"){
+        //if selected tool is eraser then set strokestyle to white
+        //to paint white color to paint on existing canvas,else
+        //set the stroke to seletced color
+        ctx.strokeStyle=selectedTool==="eraser" ?'#fff':selectedColor
         ctx.lineTo(e.offsetX, e.offsetY);
         ctx.stroke();
     }
@@ -82,6 +101,38 @@ toolbtns.forEach(btn => {
     })
 });
 
+
+sizeSlider.addEventListener("change",()=> brushWidth=sizeSlider.value); //passing slider value as brush size
+
+ColorBtns.forEach(btn =>{
+    btn.addEventListener("click",()=>{
+        document.querySelector(".options .selected").classList.remove("selected");
+        btn.classList.add("selected");
+        selectedColor=window.getComputedStyle(btn).getPropertyValue("background-color");
+        console.log(btn.id);
+    })
+});
+
+colorPicker.addEventListener("change" ,()=>{
+    colorPicker.parentElement.style.background=colorPicker.value;
+    colorPicker.parentElement.click();
+});
+
+
+clearCanvas.addEventListener("click",()=>{
+    ctx.clearRect(0,0,canvas.width,canvas.height);//clear canvas
+    setBackGround();
+});
+
+
+saveImage.addEventListener("click",()=>{
+    const a=document.createElement("a");
+    a.download="file.jpeg";
+    let url=canvas.toDataURL("image/jpeg;base64")
+     a.href=url
+     a.click();
+     a.remove()
+})
 
 canvas.addEventListener("mousedown",Startdrawing);
 canvas.addEventListener("mousemove",drawing);

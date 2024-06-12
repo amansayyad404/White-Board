@@ -3,24 +3,23 @@
     height: 5rem;
     width: 5rem;
     border-radius: 50%;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5.9px);
-    -webkit-backdrop-filter: blur(5.9px);
-    border: 1px solid rgba(254, 255, 255, 0.21);
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    background-image: linear-gradient(to top, #00c6fb 0%, #005bea 100%);
+    background: rgba(255, 255, 255, 0.504);
+    backdrop-filter: blur(7.8px);
+   -webkit-backdrop-filter: blur(7.8px);
+    border: 1px solid rgba(255, 255, 255, 0.49);
     margin-top: 5px;
     margin-left: 4px;
     top: 1.2rem;
     left: 2rem;
     align-self: center;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
 
 
 .hamburger .line{
     width: 45px;
     height: 5px;
-    background-color: #e6e6e6;
+    background-color: #fff;
     display: block;
     margin: 8px auto;
     
