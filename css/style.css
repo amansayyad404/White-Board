@@ -38,7 +38,6 @@ section{
     
     padding: 15px 22px 0;
 
- /* From https://css.glass */
  background: rgba(255, 255, 255, 0.61);
  border-radius: 16px;
  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -152,6 +151,7 @@ opacity: 0;
 cursor: pointer;
 }
 
+
 .buttons button{
     width: 100%;
     color: #fff;
@@ -165,15 +165,39 @@ cursor: pointer;
     cursor: pointer;
 
 }
+
 .buttons .clear-canvas{
     color: #0a0a0a;
     border: 1px solid #080808;
     transition: all 0.3s ease;
 
 }
+.buttons .undo{
+    color: #0a0a0a;
+    border: 1px solid #080808;
+    transition: all 0.3s ease;
+    
+}
+.buttons .redo{
+    color: #0a0a0a;
+    border: 1px solid #080808;
+    transition: all 0.3s ease;
+    
+}
+.redo:hover{
+    color: #fff;
+    background: #6c757d;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+.undo:hover{
+    color: #fff;
+    background: #6c757d;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
 .clear-canvas:hover{
     color: #fff;
     background: #6c757d;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 
 
@@ -183,12 +207,13 @@ cursor: pointer;
     border: 1px solid #4a98f7;
     transition: all 0.3s ease;
 
-
+    
 }
 .save-img:hover{
     color: #fff;
     background: #0a0a0a;
     border-color: #fff;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 .drawing-board{
     border-radius: 16px;
@@ -202,4 +227,8 @@ cursor: pointer;
     border-radius: 16px;
     width: 100%;
     height: 100%;
+}
+
+.colors li:hover{
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }

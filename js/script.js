@@ -6,13 +6,19 @@ ColorBtns=document.querySelectorAll(".colors .option");
 colorPicker=document.querySelector("#color-picker");
 clearCanvas=document.querySelector(".clear-canvas");
 saveImage=document.querySelector(".save-img");
+undoBtn=document.querySelector(".undo");
+redoBtn=document.querySelector(".redo");
+
 
 
 ctx=canvas.getContext("2d");
 
 canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
-
+let undoStack=[];
+let redoStack=[];
+let lastX;
+let lastY;
 
 let prevMouseX, prevMouseY,snapshot;
 let isDrawing=false;
@@ -55,15 +61,23 @@ const DrawTriangle=(e)=>{
     ctx.stroke();
     fillColor.checked ? ctx.fill() : ctx.stroke();
 }
+
 const Startdrawing= (e)=>{
-    isDrawing=true;
+    // isDrawing=true;
     prevMouseX=e.offsetX;
     prevMouseY=e.offsetY;
+    isDrawing = true;
+    [lastX, lastY] = [e.offsetX, e.offsetY];
+    undoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
     ctx.beginPath();
+    // ctx.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+
     ctx.lineWidth=brushWidth;
     ctx.strokeStyle=selectedColor;
     ctx.fillStyle=selectedColor;
     snapshot=ctx.getImageData(0,0,canvas.width,canvas.height);
+
+   
 }
 
 
@@ -77,8 +91,20 @@ const drawing =(e) =>{
         //to paint white color to paint on existing canvas,else
         //set the stroke to seletced color
         ctx.strokeStyle=selectedTool==="eraser" ?'#fff':selectedColor
-        ctx.lineTo(e.offsetX, e.offsetY);
-        ctx.stroke();
+        // ctx.lineTo(e.offsetX, e.offsetY);
+        // ctx.stroke();
+        // [lastX, lastY] = [e.offsetX, e.offsetY];
+    
+           
+            ctx.lineJoin = 'round';
+            ctx.lineCap = 'round';
+            
+            // ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.stroke();
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+      ;
     }
     else if(selectedTool==="rectangle"){
         DrawRect(e);
@@ -134,8 +160,29 @@ saveImage.addEventListener("click",()=>{
      a.remove()
 })
 
+undoBtn.addEventListener("click",()=>{
+console.log("undo click");
+if (undoStack.length > 0) {
+    redoStack.push(undoStack.pop());
+    ctx.putImageData(undoStack[undoStack.length - 1], 0, 0);
+}
+})
+
+redoBtn.addEventListener("click",()=>{
+    if (redoStack.length > 0) {
+        undoStack.push(redoStack.pop());
+        ctx.putImageData(undoStack[undoStack.length - 1], 0, 0);
+        
+    }
+})
+
+
+
+
 canvas.addEventListener("mousedown",Startdrawing);
 canvas.addEventListener("mousemove",drawing);
+
 canvas.addEventListener("mouseup",function(e){
     isDrawing=false;
 })
+
