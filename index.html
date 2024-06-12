@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/hamburger.css">
     <link rel="stylesheet" href="./css/queries.css">
-    <script src="script.js " defer></script>
+    
 </head>
 <body>
     <div class="ham">
@@ -24,34 +24,34 @@
             <div class="row">
                 <label for="title">Shapes</label>
                 <ul class="options">
-                    <li class="option ">
-                        <img src="./icons/rectangle.svg" alt="shapeImg" >
+                    <li class="option tool" id="rectangle">
+                        <img src="./icons/rectangle.svg" alt="shapeImg" class="active" >
                         <span>Rectangle</span>
                     </li>
 
-                    <li class="option">
+                    <li class="option tool" id="triangle">
                         <img src="./icons/triangle.svg" alt="shapeImg">
                         <span>Triangle</span>
                     </li>
 
-                    <li class="option">
+                    <li class="option tool" id="circle">
                         <img src="./icons/circle.svg" alt="shapeImg" >
                         <span>Circle</span>
                     </li>
-                    <li class="option">
+                    <li class="optio ">
                         <input type="checkbox" name="" id="fill-color">
-                        <label for="fill-color">Fill Color</label>
+                        <label for="fill-color">Fill-Color</label>
                     </li>
                 </ul>
             </div>
             <div class="row">
                 <label for="title">Options</label>
                 <ul class="options">
-                    <li class="option">
+                    <li class="option tool" id="brush">
                         <img src="./icons/brush.svg" alt="toolImg">
                         <span>Brush</span>
                     </li>
-                    <li class="option">
+                    <li class="option tool" id="eraser">
                         <img src="./icons/eraser.svg" alt="toolImg">
                         <span>Eraser</span>
                     </li>
@@ -81,10 +81,11 @@
             </div>
         </section>
         <section class="drawing-board add-size">
-            <canvas></canvas>
+            <canvas class="board"></canvas>
         </section>
     </div>
     <script src="./js/common.js"></script>
+    <script src="./js/script.js"></script>
     <script src="./js/tool.js"></script>
 </body>
 </html>
