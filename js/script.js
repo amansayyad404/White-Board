@@ -20,6 +20,11 @@ let redoStack=[];
 let lastX;
 let lastY;
 
+function saveState() {
+    undoStack.push(canvas.toDataURL());
+    redoStack = []; // Clear redo stack
+}
+
 let prevMouseX, prevMouseY,snapshot;
 let isDrawing=false;
 let selectedTool="brush";
@@ -68,7 +73,7 @@ const Startdrawing= (e)=>{
     prevMouseY=e.offsetY;
     isDrawing = true;
     [lastX, lastY] = [e.offsetX, e.offsetY];
-    undoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+   
     ctx.beginPath();
     // ctx.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
 
@@ -85,6 +90,7 @@ const drawing =(e) =>{
     if(!isDrawing){
         return;
     }
+    saveState();
     ctx.putImageData(snapshot,0,0);
     if(selectedTool==="brush" || selectedTool==="eraser"){
         //if selected tool is eraser then set strokestyle to white
@@ -160,23 +166,32 @@ saveImage.addEventListener("click",()=>{
      a.remove()
 })
 
+
 undoBtn.addEventListener("click",()=>{
-console.log("undo click");
-if (undoStack.length > 0) {
-    redoStack.push(undoStack.pop());
-    ctx.putImageData(undoStack[undoStack.length - 1], 0, 0);
-}
+    if (undoStack.length > 0) {
+        redoStack.push(canvas.toDataURL());
+        let previousState = undoStack.pop();
+        let img = new Image();
+        img.src = previousState;
+        img.onload = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0);
+        };
+    }
 })
 
 redoBtn.addEventListener("click",()=>{
     if (redoStack.length > 0) {
-        undoStack.push(redoStack.pop());
-        ctx.putImageData(undoStack[undoStack.length - 1], 0, 0);
-        
+        undoStack.push(canvas.toDataURL());
+        let nextState = redoStack.pop();
+        let img = new Image();
+        img.src = nextState;
+        img.onload = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0);
+        };
     }
 })
-
-
 
 
 canvas.addEventListener("mousedown",Startdrawing);
