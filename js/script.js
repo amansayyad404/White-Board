@@ -20,10 +20,12 @@ let redoStack=[];
 let lastX;
 let lastY;
 
+//undo/redo
 function saveState() {
     undoStack.push(canvas.toDataURL());
     redoStack = []; // Clear redo stack
 }
+//////////////
 
 let prevMouseX, prevMouseY,snapshot;
 let isDrawing=false;
